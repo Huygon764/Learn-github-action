@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     parameters {
-        choise(name: 'language', choices: ['node', 'python'], description: 'Select the programming language')
-        string(name: 'name', defautlValue: 'Huy': ,description: 'Enter your name')
+        choice(name: 'language', choices: ['node', 'python'], description: 'Select the programming language')
+        string(name: 'name', defaultValue: 'Huy': ,description: 'Enter your name')
     }
 
     stages {
         stage('Initialize') {
-            step {
+            steps {
                 echo "Initializing the pipeline for ${params.language} with name ${params.name}"
             }
         }
@@ -16,12 +16,12 @@ pipeline {
         stage('Create log') {
             sh 'echo "Build successful at $(date)" > build_log.txt'
         }
+    }
 
-        post {
-            always {
-                echo "Build success"
-                archiveArtifacts artifacts: 'build_log.txt', fingerprint: true
-            }
+    post {
+        always {
+            echo "Build success"
+            archiveArtifacts artifacts: 'build_log.txt', fingerprint: true
         }
     }
 }
