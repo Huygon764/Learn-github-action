@@ -28,16 +28,16 @@ jobs:
           name: build-artifact
           path: ./dist
 
-    deploy:
-      needs: build
-      runs-on: ubuntu-latest
-      environtment:
-        name: github-pages
-        url: ${{ steps.deploy1.outputs.page_url }}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environtment:
+      name: github-pages
+      url: ${{ steps.deploy1.outputs.page_url }}
 
-      steps:
-        - name: Download artifact
-          id: deploy1
-          uses: actions/deploy-pages@v4
-          with:
-            artifact-name: build-artifact
+    steps:
+      - name: Download artifact
+        id: deploy1
+        uses: actions/deploy-pages@v4
+        with:
+          artifact-name: build-artifact
