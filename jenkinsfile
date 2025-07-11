@@ -1,29 +1,43 @@
 pipeline {
     agent any
 
-    parameters {
-        choice(name: 'language', choices: ['node', 'python'], description: 'Select the programming language')
-        string(name: 'name', defaultValue: 'Huy', description: 'Enter your name')
+    environment {
+        DEPLOY_TARGET = "staging"
     }
 
     stages {
-        stage('Initialize') {
+        stage('Build') {
             steps {
-                echo "Initializing the pipeline for ${params.language} with name ${params.name}"
+                echo "Building the for deployment target: ${env.BRANCH_NAME}"
             }
         }
 
-        stage('Create log') {
+        stage('Inject secret') {
             steps {
-                echo "Build successful at $(date)" > 1.log.txt
+                withCredentials([string(credentialId: 'API_KEY', variable: 'API_KEY_VAR')]) {
+                    echo "Secret key is available now."
+                    sh 'echo "My API Key is: $API_KEY_VAR" > secret.txt'
+                }
+                echo "Secret key has been hidden again"
             }
         }
-    }
 
-    post {
-        always {
-            echo "Build success"
-            archiveArtifacts artifacts: '1.log.txt', fingerprint: true
+        stage('Deploy to staging') {
+            when {
+                branch 'dev'
+            }
+            steps {
+                echo "deployment to ${env.DEPLOY_TARGET} is in progress"
+            }
+        }
+
+        stage('Deploy to production') {
+            when {
+                branch 'main'
+            }
+            steps {
+                echo "deployment to production is in progress"
+            }
         }
     }
 }
