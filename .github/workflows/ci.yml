@@ -8,7 +8,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    stategy:
+    strategy:
       matrix:
         node-version: [16.x, 18.x, 20.x]
       
