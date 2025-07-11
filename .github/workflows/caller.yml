@@ -6,6 +6,6 @@ on:
 
 jobs:
   call:
-    ueses: ./.github/workflows/reuseable.yml
+    ueses: ./reuseable.yml
     with:
       node_version: '18.x'
