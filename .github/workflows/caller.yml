@@ -1,0 +1,11 @@
+Name: Main workflow
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  call:
+    ueses: ./.github/workflows/reuseable.yml
+    with:
+      node_version: '18.x'
