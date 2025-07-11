@@ -3,7 +3,7 @@ pipeline {
 
     parameters {
         choice(name: 'language', choices: ['node', 'python'], description: 'Select the programming language')
-        string(name: 'name', defaultValue: 'Huy': ,description: 'Enter your name')
+        string(name: 'name', defaultValue: 'Huy', description: 'Enter your name')
     }
 
     stages {
