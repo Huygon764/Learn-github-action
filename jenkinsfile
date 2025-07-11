@@ -15,7 +15,7 @@ pipeline {
 
         stage('Create log') {
             steps {
-                sh 'echo "Build successful at $(date)" > build_log.txt'
+                echo "Build successful at $(date)" > 1.log.txt
             }
         }
     }
@@ -23,7 +23,7 @@ pipeline {
     post {
         always {
             echo "Build success"
-            archiveArtifacts artifacts: 'build_log.txt', fingerprint: true
+            archiveArtifacts artifacts: '1.log.txt', fingerprint: true
         }
     }
 }
