@@ -14,8 +14,9 @@ pipeline {
 
         stage('Inject secret') {
             steps {
-                withCredentials([string(credentialsId: 'API_KEY', variable: 'API_KEY_VAR')]) {
+                withCredentials([string(credentialsId: 'SECRET', variable: 'API_KEY_VAR')]) {
                     echo "Secret key is available now."
+                    echo "My API Key: $API_KEY_VAR"
                     sh 'echo "My API Key is: $API_KEY_VAR" > secret.txt'
                 }
                 echo "Secret key has been hidden again"
