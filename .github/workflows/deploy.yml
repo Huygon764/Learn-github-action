@@ -34,11 +34,11 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deploy1.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Download artifact
-        id: deploy1
+        id: deployment
         uses: actions/deploy-pages@v4
         with:
           artifact_name: github-pages-artifact
