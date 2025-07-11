@@ -1,0 +1,43 @@
+name: Artifact and Deploy
+
+on: 
+  push:
+    branches: [ main ]
+
+permissions: 
+  contents: read
+  id-token: write
+  pages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build 
+        run: |
+          mkdir -p build
+          echo "<h1>Deployed from Actions!</h1>" > build/index.html
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: ./dist
+
+    deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      environtment:
+        name: github-pages
+        url: ${{ steps.deploy1.outputs.page_url }}
+
+      steps:
+        - name: Download artifact
+          id: deploy1
+          uses: actions/deploy-pages@v4
+          with:
+            artifact-name: build-artifact
