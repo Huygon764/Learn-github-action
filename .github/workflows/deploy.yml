@@ -24,7 +24,7 @@ jobs:
           echo "<h1>Deployed from Actions!</h1>" > build/index.html
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages-artifact
           path: ./build
