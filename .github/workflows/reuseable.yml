@@ -25,3 +25,6 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+      - name: list file
+        run: ls -la
