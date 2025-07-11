@@ -1,35 +1,37 @@
-name: Artifact and Deploy
+# .github/workflows/deploy.yml
+name: Deploy to GitHub Pages
 
-on: 
+on:
   push:
     branches: [ main ]
 
-permissions: 
+# Grant the GITHUB_TOKEN permissions to write to the deployment
+permissions:
   contents: read
-  id-token: write
   pages: write
-  actions: read
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build 
+      # In a real app, this step would be 'npm run build' or similar
+      - name: Simulate a build step
         run: |
           mkdir -p build
           echo "<h1>Deployed from Actions!</h1>" > build/index.html
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
           name: github-pages-artifact
           path: ./build
 
   deploy:
+    # This job depends on the 'build' job completing successfully
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -37,8 +39,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Download artifact
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        # The artifact name must match the one from the 'build' job
         with:
           artifact_name: github-pages-artifact
