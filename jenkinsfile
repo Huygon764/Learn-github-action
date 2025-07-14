@@ -6,9 +6,9 @@ pipeline {
         string(name: 'name', defaultValue: 'Huy', description: 'Enter your name')
     }
 
-      environment {
-    GITHUB_TOKEN = credentialsId('Huygon764') // Jenkins will inject it
-  }
+    environment {
+        GITHUB_TOKEN = credentials('Huygon764') // Jenkins will inject it
+    }
 
     stages {
         stage('Initialize') {
