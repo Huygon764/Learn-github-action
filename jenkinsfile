@@ -26,32 +26,13 @@ pipeline {
         stage('Run LocaleCash Tests') {
             steps {
                 withCredentials([string(credentialsId: 'GITHUB', variable: 'GITHUB_TOKEN')]) {
-                    script {
-                        echo "🧪 Triggering LocaleCash testing workflow..."
-                        
-                        def response = sh(
-                            script: """
-                                curl -X POST \\
-                                    -H "Accept: application/vnd.github+json" \\
-                                    -H "Authorization: Bearer \${GITHUB_TOKEN}" \\
-                                    -H "X-GitHub-Api-Version: 2022-11-28" \\
-                                    -H "Content-Type: application/json" \\
-                                    -w "HTTP_CODE:%{http_code}" \\
-                                    -s \\
-                                    -d '{"ref":"master"}' \\
-                                    https://api.github.com/repos/Huygon764/localecash-local/actions/workflows/localecash-testing.yml/dispatches
-                            """,
-                            returnStdout: true
-                        ).trim()
-                        
-                        echo "Response: ${response}"
-                        
-                        if (response.contains("HTTP_CODE:204")) {
-                            echo "✅ LocaleCash testing workflow triggered successfully"
-                        } else {
-                            error "❌ Failed to trigger workflow. Response: ${response}"
-                        }
-                    }
+                    sh """
+                        curl -X POST \\
+                            -H "Authorization: Bearer \${GITHUB_TOKEN}" \\
+                            -H "Content-Type: application/json" \\
+                            -d '{"ref":"master"}' \\
+                            https://api.github.com/repos/Huygon764/localecash-local/actions/workflows/localecash-testing.yml/dispatches
+                    """
                 }
             }
         }
