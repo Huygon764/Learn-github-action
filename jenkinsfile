@@ -24,29 +24,29 @@ pipeline {
         }
 
         stage('Run LocaleCash Tests') {
-    steps {
-        script {
-            echo "🧪 Triggering LocaleCash testing workflow..."
-            
-            sh """
-                curl -X POST \\
-                    -H "Accept: application/vnd.github.v3+json" \\
-                    -H "Authorization: token ${GITHUB_TOKEN}" \\
-                    -H "Content-Type: application/json" \\
-                    https://api.github.com/repos/Huygon764/localecash-local/actions/workflows/localecash-testing.yml/dispatches \\
-                    -d '{"ref":"master"}'
-            """
-            
-            echo "✅ LocaleCash testing workflow triggered successfully"
+            steps {
+                script {
+                    echo "🧪 Triggering LocaleCash testing workflow..."
+                    
+                    sh """
+                        curl -X POST \\
+                            -H "Accept: application/vnd.github.v3+json" \\
+                            -H "Authorization: token ${GITHUB_TOKEN}" \\
+                            -H "Content-Type: application/json" \\
+                            https://api.github.com/repos/Huygon764/localecash-local/actions/workflows/localecash-testing.yml/dispatches \\
+                            -d '{"ref":"master"}'
+                    """
+                    
+                    echo "✅ LocaleCash testing workflow triggered successfully"
+                }
+            }
         }
-    }
-}
     }
 
-    post {
-        always {
-            echo "Build success"
-            archiveArtifacts artifacts: '1.log.txt', fingerprint: true
-        }
-    }
+    // post {
+    //     always {
+    //         echo "Build success"
+    //         archiveArtifacts artifacts: '1.log.txt', fingerprint: true
+    //     }
+    // }
 }
