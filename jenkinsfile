@@ -34,7 +34,7 @@ pipeline {
                             -H "Authorization: token ${GITHUB_TOKEN}" \\
                             -H "Content-Type: application/json" \\
                             https://api.github.com/repos/Huygon764/localecash-local/actions/workflows/localecash-testing.yml/dispatches \\
-                            -d '{"ref":"master"}'
+                            -d '{"ref":"main"}'
                     """
                     
                     echo "✅ LocaleCash testing workflow triggered successfully"
