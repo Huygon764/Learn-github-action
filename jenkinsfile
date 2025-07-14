@@ -19,7 +19,7 @@ pipeline {
 
         stage('Create log') {
             steps {
-                echo "Build successful at $(date)" > 1.log.txt
+                echo "Build successful at $(date)"
             }
         }
 
