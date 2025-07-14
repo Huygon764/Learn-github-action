@@ -6,9 +6,9 @@ pipeline {
         string(name: 'name', defaultValue: 'Huy', description: 'Enter your name')
     }
 
-    environment {
-        GITHUB_TOKEN = credentials('Huygon764') // Jenkins will inject it
-    }
+    // environment {
+    //     GITHUB_TOKEN = credentials('Huygon764') // Jenkins will inject it
+    // }
 
     stages {
         stage('Initialize') {
@@ -25,7 +25,7 @@ pipeline {
 
         stage('Run LocaleCash Tests') {
             steps {
-                withCredentials([string(credentialsId: 'Huygon764', variable: 'GITHUB_TOKEN')]) {
+                withCredentials([string(credentialsId: 'GITHUB', variable: 'GITHUB_TOKEN')]) {
                     script {
                         echo "🧪 Triggering LocaleCash testing workflow..."
                         
