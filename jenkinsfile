@@ -38,7 +38,8 @@ pipeline {
                                     -H "Content-Type: application/json" \\
                                     -w "HTTP_CODE:%{http_code}" \\
                                     -s \\
-                                    https://api.github.com/repos/Huygon764/localecash-local/actions/workflows/localecash-testing.yml/dispatches \\
+                                    -d '{"ref":"master"}' \\
+                                    https://api.github.com/repos/Huygon764/localecash-local/actions/workflows/localecash-testing.yml/dispatches
                             """,
                             returnStdout: true
                         ).trim()
